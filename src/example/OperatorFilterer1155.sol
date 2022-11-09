@@ -26,23 +26,10 @@ abstract contract OperatorFilterer1155 {
         }
     }
 
-    modifier onlyAllowedOperator(address from, uint256 id) virtual {
+    modifier onlyAllowedOperator(address from) virtual {
         // Check registry code length to facilitate testing in environments without a deployed registry.
         if (address(operatorFilterRegistry).code.length > 0) {
             _checkOperator(from);
-        }
-        _;
-    }
-
-    modifier onlyAllowedOperatorBatch(address from, uint256[] memory ids) virtual {
-        // Check registry code length to facilitate testing in environments without a deployed registry.
-        if (address(operatorFilterRegistry).code.length > 0) {
-            uint256 idsLength = ids.length;
-            unchecked {
-                for (uint256 i = 0; i < idsLength; ++i) {
-                    _checkOperator(from);
-                }
-            }
         }
         _;
     }
